@@ -3,7 +3,7 @@ import { MarkerLayer } from './markerlayer.directive';
 import { DataLayer } from './datalayer.directive';
 import { NamedTileLayer } from './namedtilelayer.directive';
 import { LeafLayer } from './leaflayer';
-import { ViewChild, ContentChildren, ContentChild, OnInit, Inject, forwardRef, Component,Directive, AfterViewInit, Input, Output, EventEmitter, QueryList, ElementRef, ApplicationRef  } from '@angular/core';
+import { ViewChild, ContentChildren, ContentChild, OnInit, OnChanges, Inject, forwardRef, Component,Directive, AfterViewInit, Input, Output, EventEmitter, QueryList, ElementRef, ApplicationRef  } from '@angular/core';
 
 declare var L;
 
@@ -12,7 +12,7 @@ declare var L;
   templateUrl: './mn-map.component.html',
   styleUrls: ['./mn-map.component.css']
 })
-export class MnMapComponent implements OnInit {
+export class MnMapComponent implements OnInit, OnChanges, AfterViewInit {
 
   ngOnInit(): void {
   }
@@ -43,18 +43,19 @@ export class MnMapComponent implements OnInit {
   @Input() legend = [];
   @Input() show_legend = false;
   
-  private toggled = true;
+  public toggled = true;
   
   @ContentChildren(NamedTileLayer) namedLayers: QueryList<LeafLayer>;
   @ContentChildren(DataLayer) dataLayers: QueryList<LeafLayer>;
   @ContentChildren(MarkerLayer) markerLayers: QueryList<LeafLayer>;
   @ContentChildren(MapboxLayer) mapboxLayers: QueryList<LeafLayer>;
 
-  @Output() click:EventEmitter<any> = new EventEmitter();
-  @Output() movestart:EventEmitter<any> = new EventEmitter();
-  @Output() moveend:EventEmitter<any> = new EventEmitter();
-  @Output() zoomchange:EventEmitter<number> = new EventEmitter();
+  @Output() click: EventEmitter<any> = new EventEmitter();
+  @Output() movestart: EventEmitter<any> = new EventEmitter();
+  @Output() moveend: EventEmitter<any> = new EventEmitter();
+  @Output() zoomchange: EventEmitter<number> = new EventEmitter();
   
+  public bar = false;
   public map = null;
   
   private layers:Array<LeafLayer> = [];

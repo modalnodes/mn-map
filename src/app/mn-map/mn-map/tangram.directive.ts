@@ -26,7 +26,7 @@ export class TangramLayer extends FeatureLayerBase {
     numWorkers: this.numWorkers,
     unloadInvisibleTiles: this.unloadInvisibleTiles,
     updateWhenIdle: this.updateWhenIdle,
-    attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | <a href="'+this.attribUrl+'" target="_blank">'+this.attribName+'</a> | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
+    attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | <a href="' + this.attribUrl + '" target="_blank">' + this.attribName + '</a> | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
 });
   }
   public isBase(): boolean {
