@@ -1,16 +1,16 @@
-
+import * as L from 'leaflet';
 
 /**
  * Represents the generic layer
  */
-export interface LeafLayer{
-  getLayer():L.Layer|Promise<L.Layer>;
-  addToMap(m, lc);
-  getName():string;
-  isBase():boolean;
+export abstract class LeafLayer{
+  public abstract getLayer():L.Layer|Promise<L.Layer>;
+  public abstract addToMap(m, lc);
+  public abstract getName():string;
+  public abstract isBase():boolean;
 }
 
-export abstract class LayerBase implements LeafLayer{
+export abstract class LayerBase extends LeafLayer{
   public abstract getLayer():L.Layer|Promise<L.Layer>;
   public abstract isBase():boolean;
   public abstract addToMap(m, lc);
@@ -46,12 +46,10 @@ export abstract class FeatureLayerBase extends LeafLayerBase{
   public abstract getLayer():L.FeatureGroup|Promise<L.FeatureGroup>;
   public abstract isBase():boolean;
 
-  
-  zoomlayer;
+  private zoomlayer;
 
-  getBounds(map){
+  public getBounds(map){
     let l = this.getLayer();
-    
     if ((<L.FeatureGroup>l).getBounds())
       (<L.FeatureGroup>l).getBounds();
     else
@@ -59,7 +57,4 @@ export abstract class FeatureLayerBase extends LeafLayerBase{
         return x.getBounds()
       });
   }
-  
 }
-
-

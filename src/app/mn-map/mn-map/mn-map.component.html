@@ -1,3 +1,25 @@
-<p>
-  mn-map works!
-</p>
+<div class="map" id="{{map_id}}"></div>
+
+<div *ngIf="show_legend" class="map-legend" [ngClass]="{open:toggled, closed:!toggled, filtered:is_filtered}" [attr.id]="map_id+'_legend'">
+    <div class="row">
+        <div (click)="toggleLegend()" class="col-md-12">
+            <i [ngClass]="{hidden:!toggled}" class="fa fa-fw fa-close pull-right fa-2x"></i>
+            <i [ngClass]="{hidden:toggled}" class="fa fa-fw fa-chevron-right pull-right fa-2x"></i>
+        </div>
+    </div>
+    <div class="row legend-row" *ngFor="let r of legend">
+        <div class="col-md-12">
+            <a [routerLink]="flavour.filterUrl(r.space, 'category', r.slug)">
+                <img width="32" class="pull-right" ngClass="{'active':is_selected(r.slug)}" src="{{r.icon}}">
+                <span [ngClass]="{hidden:!toggled}" class="name pull-right">{{r.name}}</span>
+                <div [ngClass]="{hidden:!toggled}" class="buttons">
+                    <i class="fa fa-fw fa-eye"></i>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="bar" class="map-bar" [attr.id]="map_id+'_bar'">
+    <div *ngFor="let bi of bar"></div>
+</div>

@@ -1,4 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { MapboxLayer } from './mapboxlayer.directive';
+import { MarkerLayer } from './markerlayer.directive';
+import { DataLayer } from './datalayer.directive';
+import { NamedTileLayer } from './namedtilelayer.directive';
+import { LeafLayer } from './leaflayer';
+import { ViewChild, ContentChildren, ContentChild, OnInit, Inject, forwardRef, Component,Directive, AfterViewInit, Input, Output, EventEmitter, QueryList, ElementRef, ApplicationRef  } from '@angular/core';
+
+declare var L;
 
 @Component({
   selector: 'mn-map',
@@ -34,22 +41,14 @@ export class MnMapComponent implements OnInit {
   @Input() zoomtolayer:LeafLayer = null;
   
   @Input() legend = [];
-  @Input() show_legend = true;
+  @Input() show_legend = false;
   
-  toggled = true;
+  private toggled = true;
   
-  @ContentChildren(BaseLayer) baseLayers: QueryList<LeafLayer>;
-  @ContentChildren(NamedLayer) namedLayers: QueryList<LeafLayer>;
+  @ContentChildren(NamedTileLayer) namedLayers: QueryList<LeafLayer>;
   @ContentChildren(DataLayer) dataLayers: QueryList<LeafLayer>;
   @ContentChildren(MarkerLayer) markerLayers: QueryList<LeafLayer>;
   @ContentChildren(MapboxLayer) mapboxLayers: QueryList<LeafLayer>;
-  
-  @ContentChildren(CityOSLayer) cityoslayer: QueryList<LeafLayer>;
-  @ContentChildren(CityOSNearbyLayer) cityosnearbylayer: QueryList<LeafLayer>;
-  @ContentChildren(CityOSBackgroundLayer) cityosbglayer: QueryList<LeafLayer>;
-  
-  // This is the only zoomable layer
-  @ContentChild(CityOSMappersLayer) cityosmapperslayer: CityOSMappersLayer;
 
   @Output() click:EventEmitter<any> = new EventEmitter();
   @Output() movestart:EventEmitter<any> = new EventEmitter();
@@ -58,7 +57,7 @@ export class MnMapComponent implements OnInit {
   
   public map = null;
   
-  layers:Array<LeafLayer> = [];
+  private layers:Array<LeafLayer> = [];
 
   private addLayer(layer:LeafLayer){
     this.layers.push(layer);
@@ -67,11 +66,8 @@ export class MnMapComponent implements OnInit {
   toggleLegend(){
     this.toggled = !this.toggled;
   }
-  
-  grid_unit:number = 170;
-  grid_gutter:number = 15;
- 
-  constructor(private elementRef: ElementRef, private flavour:FlavourProviderService){
+   
+  constructor(private elementRef: ElementRef){
      if(this.map_id == null)
       this.map_id = this.makeid();
   }
@@ -85,9 +81,6 @@ export class MnMapComponent implements OnInit {
   protected prepareLayers(){
     this.clearLayers();
     
-    this.baseLayers.forEach(element => {
-      this.addLayer(element);
-    });
 	  this.namedLayers.forEach(element => {
       this.addLayer(element);
     });
@@ -100,22 +93,6 @@ export class MnMapComponent implements OnInit {
     this.mapboxLayers.forEach(element => {
       this.addLayer(element);
     });
-    this.cityoslayer.forEach(element => {
-      this.addLayer(element);
-    });
-    this.cityosnearbylayer.forEach(element => {
-      this.addLayer(element);
-    });
-    this.cityosbglayer.forEach(element => {
-      this.addLayer(element);
-    });
-    
-    if (this.cityosmapperslayer !== undefined) {
-      this.addLayer(this.cityosmapperslayer);
-        
-      if (this.cityosmapperslayer.zoomlayer)
-        this.zoomtolayer = this.cityosmapperslayer;
-    }
   }
   
   layerControl = null;
@@ -173,9 +150,6 @@ export class MnMapComponent implements OnInit {
       lyr.addToMap(this.map, lc);
     }
 
-    if(this.zoomtolayer){
-      this.zoomtolayer.getBounds(this.map);
-    }
   }
   
   ngOnChanges(){
