@@ -19,3 +19,10 @@ and "MnMapModule" to the imported modules. Then in the code you can simply start
         <namedlayer layer="osm"></namedlayer>
         <namedlayer layer="positron"></namedlayer>
     </mn-map>
+
+## Layers
+The possible layers are:
+
+* namedlayer for standard layers (osm, positron, osms, darkmatter)
+* markerlayer 
+* datalayer

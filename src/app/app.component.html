@@ -1,8 +1,9 @@
 <div id="app-root">
   <mn-map [center]="[11.3,44.2]" [startzoom]="5" style="height:800px; width:100%">
-      <namedlayer layer="osm"></namedlayer>
-      <namedlayer layer="positron"></namedlayer>
-  </mn-map>
+    <namedlayer layer="osm"></namedlayer>
+    <namedlayer layer="positron"></namedlayer>
+    <datalayer src="https://gist.githubusercontent.com/wavded/1200773/raw/e122cf709898c09758aecfef349964a8d73a83f3/sample.json" name="GeoJTest"></datalayer>
+</mn-map>
 </div>
 
 

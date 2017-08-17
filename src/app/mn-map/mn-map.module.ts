@@ -10,9 +10,10 @@ import { NamedTileLayer } from './mn-map/namedtilelayer.directive';
 import { MapboxLayer } from './mn-map/mapboxlayer.directive';
 import { LeafLayer, LayerBase, LeafLayerBase, FeatureLayerBase } from './mn-map/leaflayer';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpModule} from '@angular/http';
 
 @NgModule({
-  imports: [CommonModule, RouterModule ],
+  imports: [CommonModule, RouterModule, HttpModule ],
   declarations: [MnMapComponent, DataLayer, TangramLayer, MarkerLayer, Marker, TileLayer, NamedTileLayer, MapboxLayer],
   exports: [MnMapComponent, DataLayer, TangramLayer, MarkerLayer, Marker, TileLayer, NamedTileLayer, MapboxLayer],
 })
