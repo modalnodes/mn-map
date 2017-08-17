@@ -11,10 +11,11 @@ import { MapboxLayer } from './mn-map/mapboxlayer.directive';
 import { LeafLayer, LayerBase, LeafLayerBase, FeatureLayerBase } from './mn-map/leaflayer';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule} from '@angular/http';
+import { MapboxglLayerDirective } from './mn-map/mapboxgl.directive';
 
 @NgModule({
   imports: [CommonModule, RouterModule, HttpModule ],
-  declarations: [MnMapComponent, DataLayer, TangramLayer, MarkerLayer, Marker, TileLayer, NamedTileLayer, MapboxLayer],
-  exports: [MnMapComponent, DataLayer, TangramLayer, MarkerLayer, Marker, TileLayer, NamedTileLayer, MapboxLayer],
+  declarations: [MnMapComponent, DataLayer, TangramLayer, MarkerLayer, Marker, TileLayer, NamedTileLayer, MapboxLayer, MapboxglLayerDirective],
+  exports: [MnMapComponent, DataLayer, TangramLayer, MarkerLayer, Marker, TileLayer, NamedTileLayer, MapboxLayer, MapboxglLayerDirective],
 })
 export class MnMapModule { }
