@@ -24,5 +24,5 @@ and "MnMapModule" to the imported modules. Then in the code you can simply start
 The possible layers are:
 
 * namedlayer for standard layers (osm, positron, osms, darkmatter)
-* markerlayer 
-* datalayer
+* markerlayer requires *marker* tags to display markers on the layer and a *name* attribute to display in the layer selector 
+* datalayer requires a *src* attribute to get the data from and a *name* attribute for the layer to show in the selector
