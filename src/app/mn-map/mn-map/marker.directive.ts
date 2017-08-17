@@ -1,5 +1,5 @@
 import { MarkerLayer } from './markerlayer.directive';
-import { Directive, Input, Output, Inject, forwardRef, EventEmitter } from '@angular/core';
+import { Directive, Input, Output, Inject, forwardRef, EventEmitter, ElementRef } from '@angular/core';
 
 /**
  * Marker for Marker Layer
@@ -24,13 +24,13 @@ export class Marker{
   }
   @Output() datachange = new EventEmitter<any>();
 
-  constructor(@Inject(forwardRef(() => MarkerLayer)) private parent:MarkerLayer){}
+  constructor(@Inject(forwardRef(() => MarkerLayer)) private parent:MarkerLayer, private elt:ElementRef){}
 
   public addMarker(lyr){
+
     let m = this.getMarker();
     if (m != null){
       lyr.addLayer(m);
-      m.openPopup();
     }
   }
   
@@ -42,8 +42,10 @@ export class Marker{
     } else {
       if (this.data.geometry) {
         if (this.data.geometry.coordinates[0] != 0) {
-          let pop = "<div><h3>"+this.data.properties.RagioneSociale+"</h3><p>"+this.data.properties.Indirizzo+", "+this.data.properties.Frazione + " "+this.data.properties.Comune+"</p></div>";
-          return L.marker(this.data.geometry.coordinates).bindPopup(pop).openPopup();
+          let pop = "<div>"+this.elt.nativeElement.innerHtml+"</div>";
+          let mrk = L.marker(this.data.geometry.coordinates);
+          mrk.bindPopup(pop).openPopup();
+          return mrk;
         }
       }
     }
