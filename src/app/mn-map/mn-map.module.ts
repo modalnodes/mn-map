@@ -12,10 +12,12 @@ import { LeafLayer, LayerBase, LeafLayerBase, FeatureLayerBase } from './mn-map/
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule} from '@angular/http';
 import { MapboxglLayerDirective } from './mn-map/mapboxgl.directive';
+import { WMSLayer } from './mn-map/wmslayer.directive';
+import { TMSLayer } from './mn-map/tmslayer.directive';
 
 @NgModule({
   imports: [CommonModule, RouterModule, HttpModule ],
-  declarations: [MnMapComponent, DataLayer, TangramLayer, MarkerLayer, Marker, TileLayer, NamedTileLayer, MapboxLayer, MapboxglLayerDirective],
-  exports: [MnMapComponent, DataLayer, TangramLayer, MarkerLayer, Marker, TileLayer, NamedTileLayer, MapboxLayer, MapboxglLayerDirective],
+  declarations: [MnMapComponent, DataLayer, TangramLayer, MarkerLayer, Marker, TileLayer, NamedTileLayer, MapboxLayer, MapboxglLayerDirective, WMSLayer, TMSLayer],
+  exports: [MnMapComponent, DataLayer, TangramLayer, MarkerLayer, Marker, TileLayer, NamedTileLayer, MapboxLayer, MapboxglLayerDirective, WMSLayer, TMSLayer],
 })
 export class MnMapModule { }

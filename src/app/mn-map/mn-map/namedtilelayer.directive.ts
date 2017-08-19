@@ -1,8 +1,8 @@
-import { Directive, Input } from '@angular/core';
 import { LeafLayerBase } from './leaflayer';
+import { Directive, Input } from '@angular/core';
 /**
  * Standard Tile Layer 
- * @param name: one of "osm", "bing", "google", ""
+ * @param name: one of "osm", "positron", "darkmatter", ""
  */
 @Directive({
   selector: 'namedlayer',

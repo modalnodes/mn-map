@@ -4,6 +4,8 @@ import { DataLayer } from './datalayer.directive';
 import { NamedTileLayer } from './namedtilelayer.directive';
 import { MapboxglLayerDirective } from './mapboxgl.directive';
 import { TangramLayer } from './tangram.directive';
+import { WMSLayer } from './wmslayer.directive';
+import { TMSLayer } from './tmslayer.directive';
 import { LeafLayer } from './leaflayer';
 import { ViewChild, ContentChildren, ContentChild, OnInit, OnChanges, Inject, forwardRef, Component,Directive, AfterViewInit, Input, Output, EventEmitter, QueryList, ElementRef, ApplicationRef  } from '@angular/core';
 
@@ -51,6 +53,8 @@ export class MnMapComponent implements OnInit, OnChanges, AfterViewInit {
   @ContentChildren(DataLayer) dataLayers: QueryList<LeafLayer>;
   @ContentChildren(MarkerLayer) markerLayers: QueryList<LeafLayer>;
   @ContentChildren(MapboxLayer) mapboxLayers: QueryList<LeafLayer>;
+  @ContentChildren(WMSLayer) wmsLayers: QueryList<LeafLayer>;
+  @ContentChildren(TMSLayer) tmsLayers: QueryList<LeafLayer>;
   @ContentChildren(MapboxglLayerDirective) mapboxglLayers: QueryList<LeafLayer>;
 
   @Output() click: EventEmitter<any> = new EventEmitter();
@@ -98,6 +102,12 @@ export class MnMapComponent implements OnInit, OnChanges, AfterViewInit {
       this.addLayer(element);
     });
     this.mapboxglLayers.forEach(element => {
+      this.addLayer(element);
+    });
+    this.tmsLayers.forEach(element => {
+      this.addLayer(element);
+    });
+    this.wmsLayers.forEach(element => {
       this.addLayer(element);
     });
   }
